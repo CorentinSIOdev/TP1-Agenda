@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {   
-    // Fonction qui ouvre la page Twig depuis la route "base"
-    #[Route('/base', name: 'base_route')]
-    public function index(): Response
+    // Fonction qui ouvre la page d'accueil dès le démarrage
+    #[Route('/', name: 'home_demarrage')]
+    public function home(): Response
     {
-        return $this->render('base.html.twig', [
+        return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
