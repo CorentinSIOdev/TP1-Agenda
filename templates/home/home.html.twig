@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <br />
+    <h1 style="text-align: center">Liste des contacts</h1>
+    <br />
+    {# Structure qui affiche un tableau #}
+    <section>
+        <div class="container">
+            <div class="sm-12-col">
+                <table class="table table-striped">
+                    <thread>
+                        <td>ID</td>
+                        <td>Nom</td>
+                        <td>Prénom</td>
+                        <td>Téléphone</td>
+                        <td>Action</td>
+                    </thread>
+                    <tbody>
+                        {# Structure qui prend les valeurs du tableau de notre contrôleur sous le nom de "tab". #}
+                        {% for valeur in tab %}
+                            <tr>
+                                {# Valeurs de mon tableau #}
+                                <td>{{ valeur.id }}</td>
+                                <td>{{ valeur.name }}</td>
+                                <td>{{ valeur.firstName }}</td>
+                                <td>{{ valeur.phone }}</td>
+                                {# Attribution du nom de la route et récupération de l'ID de la ligne sélectionnée #}
+                                <td><a href="{{ path('home_demarrage', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
