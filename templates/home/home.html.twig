@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Agenda - Accueil{% endblock %}
 
 {% block body %}
 <div class="example-wrapper">
@@ -29,7 +29,7 @@
                                 <td>{{ valeur.firstName }}</td>
                                 <td>{{ valeur.phone }}</td>
                                 {# Attribution du nom de la route et récupération de l'ID de la ligne sélectionnée #}
-                                <td><a href="{{ path('home_demarrage', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a></td>
+                                <td><a href="{{ path('app_contact', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
