@@ -27,6 +27,8 @@ class ContactController extends HomeController
 
         //     return new Response($contact->getId());
         // }
+
+    // Afficher des données d'une base de données
     #[Route('/contact/{id}', name:"info_contact")]
     public function affichageNom(ManagerRegistry $doctrine, $id) {
         $repository = $doctrine->getManager()->getRepository(Contact::class);
@@ -64,40 +66,24 @@ class ContactController extends HomeController
             ]
         );
     }
-    
-    // Mettre a jour un objet
-        // #[Route('/contact', name: 'app_contact')]
-        // public function modifyContact(ManagerRegistry $doctrine, int $id) : Response {
-        //     $entityManager = $doctrine->getManager();
-        //     $contact = $entityManager->getRepository(Contact::class)->find($id);
 
-        //     if(!$contact) {
-        //         throw $this->createNotFoundException(
-        //             "No product found for id $id"
-        //         );
-        //     }
-
-        //     $contact->setPrenom('Emilie');
-        //     $entityManager->flush();
-
-        //     return $this->redirectToRoute(
-        //         'home_demarrage', [
-        //             'id' => $contact->getId()
-        //         ]
-        //     );
-        // }
-    
     // Supprimer un objet
-        // #[Route('/contact', name: 'app_contact')]
-        // public function deleteContact(ManagerRegistry $doctrine) : Response {
-        //     $entityManager = $doctrine->getManager();
-        //     $contact = new Contact();
+    #[Route('/contact_suppression/{id}', name:"suppression_contact")]
+    public function suppressionContact(ManagerRegistry $doctrine, $id) {
+        $entityManager = $doctrine->getManager();
+        $modifContact = $entityManager->getRepository(Contact::class)->find($id);
 
-        //     $entityManager->remove($contact);
-        //     $entityManager->flush();
+        if(!$modifContact) {
+            throw $this->createNotFoundException(
+                "Aucun contact n'a été trouvé sous l'id : $id"
+            );
+        }
 
-        //     return $this->redirectToRoute(
-        //         'home_demarrage'
-        //     );
-        // }
+        $entityManager->remove($modifContact);
+        $entityManager->flush();
+
+        return $this->redirectToRoute(
+            'home_demarrage'
+        );
+    }
 }
