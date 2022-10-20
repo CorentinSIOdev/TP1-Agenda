@@ -35,7 +35,7 @@
                                 <td>{{ valeur.ville }}</td>
                                 <td>{{ valeur.age }}</td>
                                 {# Attribution du nom de la route et récupération de l'ID de la ligne sélectionnée #}
-                                {# <td><a href="{{ path('app_contact', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a></td> #}
+                                <td><a href="{{ path('info_contact', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

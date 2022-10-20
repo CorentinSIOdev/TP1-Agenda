@@ -27,6 +27,21 @@ class ContactController extends HomeController
 
         //     return new Response($contact->getId());
         // }
+    #[Route('/contact/{id}', name:"info_contact")]
+    public function affichageNom(ManagerRegistry $doctrine, $id) {
+        $repository = $doctrine->getManager()->getRepository(Contact::class);
+        $recupInfoContact = $repository->find($id);
+        
+        $nom = $recupInfoContact->getNom();
+        $prenom = $recupInfoContact->getPrenom();
+
+        return $this->render(
+            'contact/contact.html.twig', [
+                'nom'=> $nom,
+                'prenom'=> $prenom
+            ]
+        );
+    }
     
     // Mettre a jour un objet
         // #[Route('/contact', name: 'app_contact')]
