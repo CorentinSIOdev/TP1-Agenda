@@ -57,20 +57,6 @@ class ContactRepository extends ServiceEntityRepository
         return $sql->getResult();
     }
 
-    public function getUserName(string $nom, string $prenom) {
-        // Récupération de l'objet gestionnaire d'entités de doctrine
-        $entityManager = $this->getEntityManager();
-        // Affectation d'une requête SQL en tenant compte des paramètres
-        $sql = $entityManager->createQuery(
-            'SELECT nom, prenom FROM contact'
-        )->setParameter(
-            'nom', $nom,
-            'prenom', $prenom,
-        );
-
-        return $sql->getResult();
-    }
-
 //    /**
 //     * @return Contact[] Returns an array of Contact objects
 //     */

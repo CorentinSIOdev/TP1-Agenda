@@ -31,7 +31,7 @@ class ContactController extends HomeController
     public function affichageNom(ManagerRegistry $doctrine, $id) {
         $repository = $doctrine->getManager()->getRepository(Contact::class);
         $recupInfoContact = $repository->find($id);
-        
+
         $nom = $recupInfoContact->getNom();
         $prenom = $recupInfoContact->getPrenom();
 
@@ -39,6 +39,28 @@ class ContactController extends HomeController
             'contact/contact.html.twig', [
                 'nom'=> $nom,
                 'prenom'=> $prenom
+            ]
+        );
+    }
+
+    // Mettre a jour un objet
+    #[Route('/contact_modification/{id}', name:"modification_contact")]
+    public function modificationContact(ManagerRegistry $doctrine, $id) {
+        $entityManager = $doctrine->getManager();
+        $modifContact = $entityManager->getRepository(Contact::class)->find($id);
+
+        if(!$modifContact) {
+            throw $this->createNotFoundException(
+                "Aucun contact n'a été trouvé sous l'id : $id"
+            );
+        }
+
+        $modifContact->setTelephone("New number !");
+        $entityManager->flush();
+
+        return $this->redirectToRoute(
+            'home_demarrage', [
+                "id"=> $modifContact->getId()
             ]
         );
     }
