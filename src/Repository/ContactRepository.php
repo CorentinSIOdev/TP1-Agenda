@@ -39,6 +39,24 @@ class ContactRepository extends ServiceEntityRepository
         }
     }
 
+    public function getContacts(int $id, string $nom, string $prenom, string $adresse, string $ville, int $age) {
+        // Récupération de l'objet gestionnaire d'entités de doctrine
+        $entityManager = $this->getEntityManager();
+        // Affectation d'une requête SQL en tenant compte des paramètres
+        $sql = $entityManager->createQuery(
+            'SELECT * FROM contact'
+        )->setParameter(
+            'id', $id,
+            'nom', $nom,
+            'prenom', $prenom,
+            'adresse', $adresse,
+            'ville', $ville,
+            'age', $age
+        );
+
+        return $sql->getResult();
+    }
+
 //    /**
 //     * @return Contact[] Returns an array of Contact objects
 //     */
