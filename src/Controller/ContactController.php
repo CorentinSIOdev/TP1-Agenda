@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -90,7 +91,7 @@ class ContactController extends HomeController
 
     // Ajout d'un nouveau contact via un formulaire
     #[Route('/addcontact', name:"add_contact")]
-    public function ajoutContact(string $nom, string $prenom, string $telephone, string $adresse, string $ville, int $age) {
+    public function ajoutContact(Request $request, string $nom, string $prenom, string $telephone, string $adresse, string $ville, int $age) {
         $addContact = new Contact();
         $addContact->setNom($nom);
         $addContact->setPrenom($prenom);
@@ -100,5 +101,16 @@ class ContactController extends HomeController
         $addContact->setAge($age);
 
         $form = $this->createForm(ContactType::class, $addContact);
+        
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $addContact = $form->getData();
+        }
+
+        return $this->renderForm(
+            'ajout/ajouter.html.twig', [
+                'form' => $form
+            ]
+        );
     }
 }
