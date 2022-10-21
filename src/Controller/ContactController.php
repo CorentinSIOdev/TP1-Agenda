@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Form\ContactType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -85,5 +86,19 @@ class ContactController extends HomeController
         return $this->redirectToRoute(
             'home_demarrage'
         );
+    }
+
+    // Ajout d'un nouveau contact via un formulaire
+    #[Route('/addcontact', name:"add_contact")]
+    public function ajoutContact(string $nom, string $prenom, string $telephone, string $adresse, string $ville, int $age) {
+        $addContact = new Contact();
+        $addContact->setNom($nom);
+        $addContact->setPrenom($prenom);
+        $addContact->setTelephone($telephone);
+        $addContact->setAdresse($adresse);
+        $addContact->setVille($ville);
+        $addContact->setAge($age);
+
+        $form = $this->createForm(ContactType::class, $addContact);
     }
 }
