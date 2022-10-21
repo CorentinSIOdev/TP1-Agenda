@@ -91,14 +91,14 @@ class ContactController extends HomeController
 
     // Ajout d'un nouveau contact via un formulaire
     #[Route('/addcontact', name:"add_contact")]
-    public function ajoutContact(Request $request, string $nom, string $prenom, string $telephone, string $adresse, string $ville, int $age) {
+    public function ajoutContact(Request $request) {
         $addContact = new Contact();
-        $addContact->setNom($nom);
-        $addContact->setPrenom($prenom);
-        $addContact->setTelephone($telephone);
-        $addContact->setAdresse($adresse);
-        $addContact->setVille($ville);
-        $addContact->setAge($age);
+        // $addContact->setNom($nom);
+        // $addContact->setPrenom($prenom);
+        // $addContact->setTelephone($telephone);
+        // $addContact->setAdresse($adresse);
+        // $addContact->setVille($ville);
+        // $addContact->setAge($age);
 
         $form = $this->createForm(ContactType::class, $addContact);
         
