@@ -93,18 +93,27 @@ class ContactController extends HomeController
     #[Route('/addcontact', name:"add_contact")]
     public function ajoutContact(Request $request) {
         $addContact = new Contact();
-        // $addContact->setNom($nom);
-        // $addContact->setPrenom($prenom);
-        // $addContact->setTelephone($telephone);
-        // $addContact->setAdresse($adresse);
-        // $addContact->setVille($ville);
-        // $addContact->setAge($age);
+        $addContact->setNom("tt");
+        $addContact->setPrenom("tt");
+        $addContact->setTelephone("tt");
+        $addContact->setAdresse("tt");
+        $addContact->setVille("tt");
+        $addContact->setAge(19);
 
         $form = $this->createForm(ContactType::class, $addContact);
         
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $addContact = $form->getData();
+
+            $this->addFlash(
+                "messageAlerte",
+                "Contact ajouté avec succès."
+            );
+
+            $this->redirectToRoute(
+                "home_demarrage"
+            );
         }
 
         return $this->renderForm(

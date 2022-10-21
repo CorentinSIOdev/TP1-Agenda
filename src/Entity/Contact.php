@@ -43,7 +43,10 @@ class Contact
     }
 
     /**
-     * @Assert\NotBlank(message = "Il ne peut pas être vide.")
+     * @Assert\Length(
+     *      min = 2
+     *      minMessage = "Nom invalide"
+     * )
      */
     public function setNom(string $nom): self
     {
@@ -58,7 +61,10 @@ class Contact
     }
 
     /**
-     * @Assert\NotBlank(message = "Il ne peut pas être vide.")
+     * @Assert\Length(
+     *      min = 2
+     *      minMessage = "Prénom invalide"
+     * )
      */
     public function setPrenom(string $prenom): self
     {
@@ -73,7 +79,7 @@ class Contact
     }
 
     /**
-     * @Assert\NotBlank(message = "Il ne peut pas être vide.")
+     * @Assert\NotNull(message ="Ce champs ne peut être vide")
      */
     public function setTelephone(string $telephone): self
     {

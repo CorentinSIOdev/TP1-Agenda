@@ -22,7 +22,7 @@ class ContactType extends AbstractType
             ->add('adresse', TextType::class)
             ->add('ville', TextType::class)
             ->add('age', IntegerType::class)
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, ['label' => "Enregistrer le contact"])
         ;
     }
 

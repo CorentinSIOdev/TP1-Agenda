@@ -2,4 +2,10 @@
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_widget(form) }}
     {{ form_end(form) }}
+
+    {% for message in app.flashes("messageAlerte") %}
+        <script>
+            alert({{ message }});
+        </script>
+    {% endfor %}
 {% endblock %}
