@@ -37,6 +37,12 @@ class Contact
         return $this->id;
     }
     
+    // /**
+    //  * @Assert\Length(
+    //  *      min = 2
+    //  *      minMessage = "Nom invalide"
+    //  * )
+    //  */
     public function getNom(): ?string
     {
         return $this->nom;
@@ -50,11 +56,16 @@ class Contact
         return $this;
     }
 
+    // /**
+    //  * @Assert\Length(
+    //  *      min = 2
+    //  *      minMessage = "Prénom invalide"
+    //  * )
+    //  */
     public function getPrenom(): ?string
     {
         return $this->prenom;
     }
-
 
     public function setPrenom(string $prenom): self
     {
@@ -63,12 +74,14 @@ class Contact
         return $this;
     }
 
+    // /**
+    //  * @Assert\NotBlank(message ="Ce champs ne peut être vide")
+    //  */
     public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
-    
     public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
@@ -76,12 +89,14 @@ class Contact
         return $this;
     }
 
+    // /**
+    //  * @Assert\NotBlank(message = "Ce champs ne peut être vide")
+    //  */
     public function getAdresse(): ?string
     {
         return $this->adresse;
     }
 
-    
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
@@ -89,25 +104,37 @@ class Contact
         return $this;
     }
 
+    // /**
+    //  * @Assert\NotBlank(message = "Ce champs ne peut être vide")
+    //  */
     public function getVille(): ?string
     {
         return $this->ville;
     }
 
-    
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
 
         return $this;
     }
-
+    
+    // /**
+    //  * @Assert\NotBlank(message = "Ce champs ne peut être vide")
+    //  * @Assert\GreaterThanOrEqual(
+    //  *  value: 15
+    //  *  message = "Au minimum 15 ans"
+    //  * )
+    //  * @Assert\LessThan(
+    //  *  value: 120
+    //  *  message: "Au maximum "120"
+    //  * )
+    //  */
     public function getAge(): ?int
     {
         return $this->age;
     }
 
-    
     public function setAge(int $age): self
     {
         $this->age = $age;

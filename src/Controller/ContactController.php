@@ -103,18 +103,47 @@ class ContactController extends HomeController
             $entityManager->persist($addContact);
             $entityManager->flush();
 
-            return $this->redirectToRoute(
-                "home_demarrage"
+            $this->addFlash(
+                "successAdd",
+                "Contact ajouté avec succès."
             );
 
-            $this->addFlash(
-                "messageAlerte",
-                "Contact ajouté avec succès."
+            return $this->redirectToRoute(
+                "home_demarrage"
             );
         }
 
         return $this->renderForm(
             'ajout/ajouter.html.twig', [
+                'form' => $form
+            ]
+        );
+    }
+
+    #[Route('/updateContact/{id}', name:"update_contact")]
+    public function updateContact(Request $request, ManagerRegistry $doctrine, $id) {
+        $entityManager = $doctrine->getManager();
+        $updateContact = $entityManager->getRepository(Contact::class)->find($id);
+
+        $form = $this->createForm(ContactType::class, $updateContact);
+        
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $updateContact = $form->getData();
+            $entityManager->flush();
+
+            $this->addFlash(
+                "successUpdate",
+                "Contact modifié avec succès."
+            );
+
+            return $this->redirectToRoute(
+                "home_demarrage",
+            );
+        }
+
+        return $this->renderForm(
+            'modif/modifier.html.twig', [
                 'form' => $form
             ]
         );
