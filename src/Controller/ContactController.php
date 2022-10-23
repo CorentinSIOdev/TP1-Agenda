@@ -91,28 +91,25 @@ class ContactController extends HomeController
 
     // Ajout d'un nouveau contact via un formulaire
     #[Route('/addcontact', name:"add_contact")]
-    public function ajoutContact(Request $request) {
+    public function ajoutContact(Request $request, ManagerRegistry $doctrine) {
+        $entityManager = $doctrine->getManager();
         $addContact = new Contact();
-        $addContact->setNom("tt");
-        $addContact->setPrenom("tt");
-        $addContact->setTelephone("tt");
-        $addContact->setAdresse("tt");
-        $addContact->setVille("tt");
-        $addContact->setAge(19);
 
         $form = $this->createForm(ContactType::class, $addContact);
         
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $addContact = $form->getData();
+            $entityManager->persist($addContact);
+            $entityManager->flush();
+
+            return $this->redirectToRoute(
+                "home_demarrage"
+            );
 
             $this->addFlash(
                 "messageAlerte",
                 "Contact ajouté avec succès."
-            );
-
-            $this->redirectToRoute(
-                "home_demarrage"
             );
         }
 

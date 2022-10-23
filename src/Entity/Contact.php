@@ -42,15 +42,10 @@ class Contact
         return $this->nom;
     }
 
-    /**
-     * @Assert\Length(
-     *      min = 2
-     *      minMessage = "Nom invalide"
-     * )
-     */
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
 
         return $this;
     }
@@ -60,12 +55,7 @@ class Contact
         return $this->prenom;
     }
 
-    /**
-     * @Assert\Length(
-     *      min = 2
-     *      minMessage = "Prénom invalide"
-     * )
-     */
+
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
@@ -78,9 +68,7 @@ class Contact
         return $this->telephone;
     }
 
-    /**
-     * @Assert\NotNull(message ="Ce champs ne peut être vide")
-     */
+    
     public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
@@ -93,9 +81,7 @@ class Contact
         return $this->adresse;
     }
 
-    /**
-     * @Assert\NotBlank(message = "Il ne peut pas être vide.")
-     */
+    
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
@@ -108,9 +94,7 @@ class Contact
         return $this->ville;
     }
 
-    /**
-     * @Assert\NotBlank(message = "Il ne peut pas être vide.")
-     */
+    
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
@@ -123,9 +107,7 @@ class Contact
         return $this->age;
     }
 
-    /**
-     * @Assert\NotBlank(message = "Il ne peut pas être vide.")
-     */
+    
     public function setAge(int $age): self
     {
         $this->age = $age;
