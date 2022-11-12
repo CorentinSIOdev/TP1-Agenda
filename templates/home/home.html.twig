@@ -3,7 +3,20 @@
 {% block title %}Agenda - Accueil{% endblock %}
 
 {% block body %}
+{% for message in app.flashes("successAdd") %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes("successUpdate") %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
 <div class="example-wrapper">
+    {% if app.user != null %}
+        <p style="text-align: center">Vous êtes connecté en tant que {{ app.user.email }}</p>
+    {% endif %}
     <br />
     <h1 style="text-align: center">Liste des contacts</h1>
     <br />
@@ -35,9 +48,13 @@
                                 <td>{{ valeur.ville }}</td>
                                 <td>{{ valeur.age }}</td>
                                 {# Attribution du nom de la route et récupération de l'ID de la ligne sélectionnée #}
-                                <td><a href="{{ path('info_contact', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a></td>
-                                <td><a href="{{ path('modification_contact', {id: valeur.id}) }}" type="button", class="btn btn-warning">Modifier</a></td>
-                                <td><a href="{{ path('suppression_contact', {id: valeur.id}) }}" type="button", class="btn btn-danger">Supprimer</a></td>
+                                <td>
+                                    <a href="{{ path('info_contact', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a>
+                                    {% if app.user != null  %}
+                                        <a href="{{ path('update_contact', {id: valeur.id}) }}" type="button", class="btn btn-warning">Modifier</a>
+                                        <a href="{{ path('suppression_contact', {id: valeur.id}) }}" type="button", class="btn btn-danger">Supprimer</a>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

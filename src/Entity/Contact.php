@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -35,7 +36,13 @@ class Contact
     {
         return $this->id;
     }
-
+    
+    // /**
+    //  * @Assert\Length(
+    //  *      min = 2
+    //  *      minMessage = "Nom invalide"
+    //  * )
+    //  */
     public function getNom(): ?string
     {
         return $this->nom;
@@ -45,9 +52,16 @@ class Contact
     {
         $this->nom = $nom;
 
+
         return $this;
     }
 
+    // /**
+    //  * @Assert\Length(
+    //  *      min = 2
+    //  *      minMessage = "Prénom invalide"
+    //  * )
+    //  */
     public function getPrenom(): ?string
     {
         return $this->prenom;
@@ -60,6 +74,9 @@ class Contact
         return $this;
     }
 
+    // /**
+    //  * @Assert\NotBlank(message ="Ce champs ne peut être vide")
+    //  */
     public function getTelephone(): ?string
     {
         return $this->telephone;
@@ -72,6 +89,9 @@ class Contact
         return $this;
     }
 
+    // /**
+    //  * @Assert\NotBlank(message = "Ce champs ne peut être vide")
+    //  */
     public function getAdresse(): ?string
     {
         return $this->adresse;
@@ -84,6 +104,9 @@ class Contact
         return $this;
     }
 
+    // /**
+    //  * @Assert\NotBlank(message = "Ce champs ne peut être vide")
+    //  */
     public function getVille(): ?string
     {
         return $this->ville;
@@ -95,7 +118,18 @@ class Contact
 
         return $this;
     }
-
+    
+    // /**
+    //  * @Assert\NotBlank(message = "Ce champs ne peut être vide")
+    //  * @Assert\GreaterThanOrEqual(
+    //  *  value: 15
+    //  *  message = "Au minimum 15 ans"
+    //  * )
+    //  * @Assert\LessThan(
+    //  *  value: 120
+    //  *  message: "Au maximum "120"
+    //  * )
+    //  */
     public function getAge(): ?int
     {
         return $this->age;

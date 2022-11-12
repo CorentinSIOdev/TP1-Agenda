@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Form\ContactType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -84,6 +86,66 @@ class ContactController extends HomeController
 
         return $this->redirectToRoute(
             'home_demarrage'
+        );
+    }
+
+    // Ajout d'un nouveau contact via un formulaire
+    #[Route('/addcontact', name:"add_contact")]
+    public function ajoutContact(Request $request, ManagerRegistry $doctrine) {
+        $entityManager = $doctrine->getManager();
+        $addContact = new Contact();
+
+        $form = $this->createForm(ContactType::class, $addContact);
+        
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $addContact = $form->getData();
+            $entityManager->persist($addContact);
+            $entityManager->flush();
+
+            $this->addFlash(
+                "successAdd",
+                "Contact ajouté avec succès."
+            );
+
+            return $this->redirectToRoute(
+                "home_demarrage"
+            );
+        }
+
+        return $this->renderForm(
+            'ajout/ajouter.html.twig', [
+                'form' => $form
+            ]
+        );
+    }
+
+    #[Route('/updateContact/{id}', name:"update_contact")]
+    public function updateContact(Request $request, ManagerRegistry $doctrine, $id) {
+        $entityManager = $doctrine->getManager();
+        $updateContact = $entityManager->getRepository(Contact::class)->find($id);
+
+        $form = $this->createForm(ContactType::class, $updateContact);
+        
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $updateContact = $form->getData();
+            $entityManager->flush();
+
+            $this->addFlash(
+                "successUpdate",
+                "Contact modifié avec succès."
+            );
+
+            return $this->redirectToRoute(
+                "home_demarrage",
+            );
+        }
+
+        return $this->renderForm(
+            'modif/modifier.html.twig', [
+                'form' => $form
+            ]
         );
     }
 }
