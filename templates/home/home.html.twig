@@ -14,6 +14,9 @@
     </div>
 {% endfor %}
 <div class="example-wrapper">
+    {% if app.user != null %}
+        <p style="text-align: center">Vous êtes connecté en tant que {{ app.user.email }}</p>
+    {% endif %}
     <br />
     <h1 style="text-align: center">Liste des contacts</h1>
     <br />
@@ -47,8 +50,10 @@
                                 {# Attribution du nom de la route et récupération de l'ID de la ligne sélectionnée #}
                                 <td>
                                     <a href="{{ path('info_contact', {id: valeur.id}) }}" type="button", class="btn btn-info">Afficher</a>
-                                    <a href="{{ path('update_contact', {id: valeur.id}) }}" type="button", class="btn btn-warning">Modifier</a>
-                                    <a href="{{ path('suppression_contact', {id: valeur.id}) }}" type="button", class="btn btn-danger">Supprimer</a>
+                                    {% if app.user != null  %}
+                                        <a href="{{ path('update_contact', {id: valeur.id}) }}" type="button", class="btn btn-warning">Modifier</a>
+                                        <a href="{{ path('suppression_contact', {id: valeur.id}) }}" type="button", class="btn btn-danger">Supprimer</a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
