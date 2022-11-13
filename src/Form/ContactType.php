@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Contact;
 use Doctrine\DBAL\Types\BigIntType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,6 +24,10 @@ class ContactType extends AbstractType
             ->add('adresse', TextType::class)
             ->add('ville', TextType::class)
             ->add('age', IntegerType::class)
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'title'
+            ])
             ->add('save', SubmitType::class, ['label' => "Enregistrer le contact"])
         ;
     }
